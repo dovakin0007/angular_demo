@@ -1,0 +1,19 @@
+<p>add-movies works!</p>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="name">
+          Name
+        </label>
+        <input id="name" type="text" formControlName="Name">
+      </div>
+    
+      <div>
+        <label for="Actor">
+          Actor
+        </label>
+        <input id="Actor" type="text" formControlName="Actor">
+      </div>
+    
+      <button class="button" type="submit">Submit</button>
+</form>
