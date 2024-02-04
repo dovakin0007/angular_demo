@@ -7,6 +7,8 @@ import {Observable} from "rxjs";
 interface Movie {
   name?: string;
   actor?: string;
+  imageType?: string;
+  base64String?: string;
 
 }
 @Component({
