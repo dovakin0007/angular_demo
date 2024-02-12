@@ -1,0 +1,25 @@
+<table class="book-table">
+    <tr>
+      <th>NAME</th>
+      <th>AUTHOR</th>
+      <th>IMAGE</th>
+      <th>UPDATE</th>
+      <th>DELETE</th>
+    </tr>
+    <tr *ngFor="let book of books" class="book-row">
+      <td>{{ book.name }}</td>
+      <td>{{ book.author }}</td>
+      <td>
+        <div *ngIf="book.imageType && book.base64String" class="image-container">
+          <img src="{{ book.base64String }}" alt="{{ book.name }} Image" />
+        </div>
+      </td>
+      <td>
+        <button  [routerLink]="['/update-book', book.name]">Update</button>
+      </td>
+      <td>
+        <button (click)="deleteBook(book)">Delete</button>
+      </td>
+    </tr>
+  </table>
+  

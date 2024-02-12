@@ -1,0 +1,8 @@
+<div class="card-container">
+    <div *ngFor="let book of json_data" class="card">
+      <h3>{{ book.name }}</h3>
+      <p>Author: {{ book.author }}</p>
+      <img src="{{ book.base64String }}" alt="{{ book.name }} Image" />
+    </div>
+  </div>
+  
