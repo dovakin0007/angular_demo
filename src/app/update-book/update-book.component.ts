@@ -72,6 +72,14 @@ interface newBooks {
   base64String?: string;
 }
 
+interface book {
+  _id?: any;
+  name: string;
+  author: string;
+  imageType?: string;
+  base64String?: string;
+}
+
 @Component({
   selector: 'app-add-books',
   standalone: true,
@@ -82,11 +90,7 @@ interface newBooks {
 export class UpdateBookComponent {
     
 
-  myForm = this.formBuilder.group({
-    Name: new FormControl(''),
-    Author: new FormControl('')
-  });
-  
+ 
   imageUploadModel: newBooks = {};
   private postUrl = 'http://localhost:8083/api/books/';
   header = new HttpHeaders({
@@ -95,18 +99,50 @@ export class UpdateBookComponent {
   
   validFile: boolean | undefined;
   bookName!: string
+  books!: book;
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,private route: ActivatedRoute, private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe(async params => {
       this.bookName = params['name'];
+      await this.fetchMovies()
       console.log(this.bookName)
       console.log(this.postUrl + this.bookName);
+      
+     
+      // this.myForm.controls['Name'].setValue(this.books.name)
+      // this.myForm.get('Author')?.setValue(this.books.author)
+
+
     })
   }
+
+   async fetchMovies() {
+    const apiUrl = 'http://localhost:8083/api/books/';
+    
+    this.http.get<book>(apiUrl+this.bookName).subscribe(
+      (data) => {
+        console.log(data)
+        this.books = data;
+        this.myForm.patchValue({
+          Name: this.books.name,
+          Author: this.books.author
+        });
+      },
+      (error) => {
+        console.error('Error fetching movies:', error);
+      }
+    );
+  }
+
+  myForm = this.formBuilder.group({
+    Name: new FormControl('' ),
+    Author: new FormControl('' )
+  });
+  
 
   
 

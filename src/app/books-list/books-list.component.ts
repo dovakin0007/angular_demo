@@ -54,11 +54,14 @@ export class BooksListComponent {
           // Remove the book from the list
           this.books = this.books.filter(m => m.name !== book.name);
           console.log('Book deleted successfully');
+          this.ngOnInit()
         },
         (error) => {
           console.error('Error deleting book:', error);
+          this.ngOnInit()
         }
       );
     }
   }
 }
+
